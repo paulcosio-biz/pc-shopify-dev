@@ -10,6 +10,7 @@ interface FormData {
   email: string;
   budget: string;
   message: string;
+  _honey?: string;
 }
 
 const BUDGETS = [
@@ -37,6 +38,10 @@ export function ContactForm() {
     });
 
     if (!res.ok) {
+      if (res.status === 429) {
+        setError('root', { message: "You've sent too many messages. Please try again later." });
+        return;
+      }
       setError('root', { message: 'Something went wrong — please try LinkedIn instead.' });
       return;
     }
@@ -108,6 +113,18 @@ export function ContactForm() {
               </div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.form}>
+                {/* Honeypot field - visually hidden to catch bots */}
+                <div style={{ opacity: 0, position: 'absolute', top: 0, left: 0, height: 0, width: 0, zIndex: -1 }} aria-hidden="true">
+                  <label htmlFor="_honey">Phone Number</label>
+                  <input
+                    type="text"
+                    id="_honey"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    {...register('_honey')}
+                  />
+                </div>
+                
                 <h2 className={styles.formTitle}>Send a message</h2>
 
                 <div className={styles.field}>

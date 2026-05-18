@@ -66,6 +66,10 @@ const STACK_DATA = [
         name: 'Resend API',
         description: 'Used on this site to power the serverless contact form, reliably delivering emails directly to my inbox without needing a traditional backend server.',
       },
+      {
+        name: 'Security & Spam Prevention',
+        description: 'Serverless APIs are exposed to the public. To protect the contact endpoint, I implemented multi-layered security including an invisible Honeypot field to trap bots, IP-based Rate Limiting to prevent spam bursts, strict Origin Validation, and aggressive Input Sanitization to prevent XSS injection attacks.',
+      },
     ],
   },
 ];

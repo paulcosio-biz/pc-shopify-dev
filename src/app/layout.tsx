@@ -56,7 +56,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-theme="glass" suppressHydrationWarning>
-      <body className={`${syne.variable} ${inter.variable} ${jetbrainsMono.variable} noise-overlay`}>
+      <body className={`${syne.variable} ${inter.variable} ${jetbrainsMono.variable} noise-overlay`} suppressHydrationWarning>
         <Navbar />
         <main id="main-content" tabIndex={-1}>
           {children}
