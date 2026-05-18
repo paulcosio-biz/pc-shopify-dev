@@ -56,6 +56,22 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-theme="glass" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('portfolio-theme') || 'glass';
+                  var mode = localStorage.getItem('portfolio-mode') || 'dark';
+                  document.documentElement.setAttribute('data-theme', theme);
+                  document.documentElement.setAttribute('data-mode', mode);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${outfit.variable} ${inter.variable} ${jetbrainsMono.variable} noise-overlay`} suppressHydrationWarning>
         <Navbar />
         <main id="main-content" tabIndex={-1}>
