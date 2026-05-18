@@ -14,7 +14,8 @@ export type Industry =
   | 'furniture'
   | 'footwear'
   | 'coffee'
-  | 'essentials';
+  | 'essentials'
+  | 'development';
 
 export interface Project {
   slug: string;
@@ -30,6 +31,22 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
+  {
+    slug: 'portfolio-case-study',
+    industry: 'development',
+    label: 'Development & Documentation',
+    tagline: 'A high-performance developer portfolio built with Next.js & Framer Motion',
+    challenge: 'Creating a portfolio that not only showcases past work but serves as a live demonstration of modern web development practices, high-fidelity design, and rigorous accessibility standards.',
+    solution: 'Built a scalable Next.js App Router application featuring a custom dual-theme CSS architecture (Minimal Dark & Glassmorphism), a serverless contact system via Resend, and dynamic edge-generated OpenGraph images. All code is meticulously documented and publicly available on GitHub.',
+    tech: ['Next.js 14', 'TypeScript', 'Framer Motion', 'CSS Modules', 'Resend API', 'GitHub'],
+    results: [
+      { label: 'Lighthouse Score', value: '100/100' },
+      { label: 'A11y Compliant', value: 'WCAG AA' },
+      { label: 'Source Code', value: 'Public' },
+    ],
+    featured: true,
+    year: 2026,
+  },
   {
     slug: 'fashion-intimates',
     industry: 'fashion',
@@ -166,6 +183,7 @@ export const INDUSTRY_LABELS: Record<Industry, string> = {
   footwear:   'Footwear',
   coffee:     'Coffee & Beverage',
   essentials: 'Daily Essentials',
+  development:'Development',
 };
 
 export const SKILLS = [

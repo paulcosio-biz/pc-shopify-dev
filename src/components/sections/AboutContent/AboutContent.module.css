@@ -86,24 +86,31 @@
   animation: pulseDot 2s ease infinite;
 }
 
-.linkedinLink {
+.socialLinksRow {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.socialLink {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  background: rgba(10, 102, 194, 0.12);
-  border: 1px solid rgba(10, 102, 194, 0.30);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 500;
-  color: #5dade2;
-  text-decoration: none;
-  transition: background var(--transition-fast), border-color var(--transition-fast);
+  color: var(--color-gray-300);
+  transition: all var(--transition-fast);
 }
 
-.linkedinLink:hover {
-  background: rgba(10, 102, 194, 0.22);
-  border-color: rgba(10, 102, 194, 0.50);
+.socialLink:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  color: var(--color-white);
+  transform: translateY(-1px);
 }
 
 @keyframes pulseDot {
