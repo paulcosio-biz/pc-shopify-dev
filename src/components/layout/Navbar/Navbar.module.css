@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: var(--z-nav);
+  z-index: 99999 !important;
   height: var(--nav-height);
   display: flex;
   align-items: center;
@@ -201,7 +201,7 @@
   transform: translateX(100%);
   visibility: hidden;
   transition: transform var(--transition-slow), visibility var(--transition-slow);
-  z-index: 999 !important;
+  z-index: 99998 !important;
   pointer-events: none;
   opacity: 1 !important;
 }

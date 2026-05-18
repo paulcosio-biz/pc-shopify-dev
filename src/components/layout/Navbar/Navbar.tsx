@@ -34,7 +34,8 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header 
+    <>
+      <header 
       className={`${styles.header} ${scrolled ? styles.headerScrolled : ''} ${scrolled && expanded ? styles.headerExpanded : ''} ${menuOpen ? styles.headerOpen : ''}`} 
       role="banner"
       onMouseLeave={() => scrolled && setExpanded(false)}
@@ -110,34 +111,35 @@ export function Navbar() {
           <ThemeSwitcher />
         </div>
       </nav>
-
-      {/* Mobile drawer */}
-      <div
-        id="mobile-menu"
-        className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}
-        aria-hidden={!menuOpen}
-      >
-        <ul className={styles.drawerLinks} role="list">
-          {NAV_LINKS.map(link => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={`${styles.drawerLink} ${pathname === link.href ? styles.drawerLinkActive : ''}`}
-                tabIndex={menuOpen ? 0 : -1}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link
-          href="/contact"
-          className={styles.drawerCta}
-          tabIndex={menuOpen ? 0 : -1}
-        >
-          Hire Me
-        </Link>
-      </div>
     </header>
-  );
+
+    {/* Mobile drawer (rendered outside header as direct sibling to bypass nested WebKit fixed stacking context bugs) */}
+    <div
+      id="mobile-menu"
+      className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}
+      aria-hidden={!menuOpen}
+    >
+      <ul className={styles.drawerLinks} role="list">
+        {NAV_LINKS.map(link => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              className={`${styles.drawerLink} ${pathname === link.href ? styles.drawerLinkActive : ''}`}
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link
+        href="/contact"
+        className={styles.drawerCta}
+        tabIndex={menuOpen ? 0 : -1}
+      >
+        Hire Me
+      </Link>
+    </div>
+  </>
+);
 }
