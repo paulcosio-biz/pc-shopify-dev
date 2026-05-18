@@ -17,8 +17,9 @@ export default async function Image() {
             <span style={{ fontSize: '16px', fontWeight: '600', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>About</span>
           </div>
 
-          <div style={{ fontSize: '64px', fontWeight: '800', lineHeight: '1.0', color: '#ffffff', letterSpacing: '-0.03em', marginBottom: '16px' }}>
-            Paul <span style={{ color: '#FF5C1A' }}>Cosio</span>
+          <div style={{ display: 'flex', fontSize: '64px', fontWeight: '800', lineHeight: '1.0', color: '#ffffff', letterSpacing: '-0.03em', marginBottom: '16px' }}>
+            <div style={{ marginRight: '16px' }}>Paul</div>
+            <div style={{ color: '#FF5C1A' }}>Cosio</div>
           </div>
           <div style={{ fontSize: '22px', color: 'rgba(255,255,255,0.60)', marginBottom: '28px', lineHeight: '1.5' }}>
             Shopify ecommerce developer building high-converting stores for brands across Southeast Asia.

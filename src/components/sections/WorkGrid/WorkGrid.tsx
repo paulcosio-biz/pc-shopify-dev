@@ -96,7 +96,7 @@ export function WorkGrid() {
               <motion.article
                 key={project.slug}
                 className={`glass ${styles.card}`}
-                variants={cardVariants}
+                variants={cardVariants as any}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
               >
                 <div className={styles.cardTop}>

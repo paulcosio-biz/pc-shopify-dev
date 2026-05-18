@@ -37,9 +37,9 @@ export default async function Image() {
           </span>
         </div>
 
-        {/* Name */}
-        <div style={{ fontSize: '80px', fontWeight: '800', lineHeight: '1.0', color: '#ffffff', letterSpacing: '-0.03em', marginBottom: '20px' }}>
-          Paul <span style={{ color: '#FF5C1A' }}>Cosio</span>
+        <div style={{ display: 'flex', fontSize: '80px', fontWeight: '800', lineHeight: '1.0', color: '#ffffff', letterSpacing: '-0.03em', marginBottom: '20px' }}>
+          <div style={{ marginRight: '16px' }}>Paul</div>
+          <div style={{ color: '#FF5C1A' }}>Cosio</div>
         </div>
 
         {/* Subtitle */}

@@ -43,9 +43,9 @@ export default async function Image() {
           </div>
         </div>
         
-        <div style={{ fontSize: '72px', color: 'white', fontWeight: '900', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: '24px' }}>
-          Tech Stack &<br />
-          <span style={{ color: '#FF4500' }}>Philosophy</span>
+        <div style={{ display: 'flex', flexDirection: 'column', fontSize: '72px', color: 'white', fontWeight: '900', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: '24px' }}>
+          <div style={{ display: 'flex' }}>Tech Stack &</div>
+          <div style={{ color: '#FF4500', display: 'flex' }}>Philosophy</div>
         </div>
 
         <div style={{ fontSize: '28px', color: 'rgba(255,255,255,0.6)', letterSpacing: '-0.01em' }}>
