@@ -22,6 +22,8 @@
   justify-content: space-between;
   gap: var(--space-8);
   height: 100%;
+  position: relative;
+  z-index: 1000 !important;
 }
 
 /* ── Logo ──────────────────────────────────────────────────── */
@@ -179,13 +181,17 @@
 .menuBarOpen3 { transform: translateY(-6.5px) rotate(-45deg); }
 
 /* ── Mobile drawer ─────────────────────────────────────────── */
+.headerOpen {
+  z-index: 99999 !important;
+}
+
 .drawer {
   position: fixed;
   top: var(--nav-height);
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-bg);
+  background: var(--color-bg) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -195,7 +201,7 @@
   transform: translateX(100%);
   visibility: hidden;
   transition: transform var(--transition-slow), visibility var(--transition-slow);
-  z-index: calc(var(--z-nav) - 1);
+  z-index: 999 !important;
   pointer-events: none;
 }
 

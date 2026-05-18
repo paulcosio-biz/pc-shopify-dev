@@ -35,7 +35,7 @@ export function Navbar() {
 
   return (
     <header 
-      className={`${styles.header} ${scrolled ? styles.headerScrolled : ''} ${scrolled && expanded ? styles.headerExpanded : ''}`} 
+      className={`${styles.header} ${scrolled ? styles.headerScrolled : ''} ${scrolled && expanded ? styles.headerExpanded : ''} ${menuOpen ? styles.headerOpen : ''}`} 
       role="banner"
       onMouseLeave={() => scrolled && setExpanded(false)}
     >
