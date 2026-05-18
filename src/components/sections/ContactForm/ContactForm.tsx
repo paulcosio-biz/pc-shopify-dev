@@ -21,6 +21,19 @@ const BUDGETS = [
   'Let\'s discuss',
 ];
 
+const formVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.3 }
+  }
+};
+
+const fieldVariants = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+};
+
 export function ContactForm() {
   const {
     register,
@@ -51,6 +64,7 @@ export function ContactForm() {
 
   return (
     <section className={`section ${styles.section}`} aria-labelledby="contact-heading">
+      <div className={styles.orbFar} aria-hidden="true" />
       <div className="container">
         <div className={styles.grid}>
           {/* Left — info */}
@@ -112,7 +126,14 @@ export function ContactForm() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.form}>
+              <motion.form 
+                onSubmit={handleSubmit(onSubmit)} 
+                noValidate 
+                className={styles.form}
+                variants={formVariants}
+                initial="hidden"
+                animate="show"
+              >
                 {/* Honeypot field - visually hidden to catch bots */}
                 <div style={{ opacity: 0, position: 'absolute', top: 0, left: 0, height: 0, width: 0, zIndex: -1 }} aria-hidden="true">
                   <label htmlFor="_honey">Phone Number</label>
@@ -127,7 +148,7 @@ export function ContactForm() {
                 
                 <h2 className={styles.formTitle}>Send a message</h2>
 
-                <div className={styles.field}>
+                <motion.div variants={fieldVariants} className={styles.field}>
                   <label htmlFor="contact-name" className={styles.label}>
                     Your name <span aria-hidden="true">*</span>
                   </label>
@@ -140,9 +161,9 @@ export function ContactForm() {
                     {...register('name', { required: 'Name is required' })}
                   />
                   {errors.name && <span className={styles.error} role="alert">{errors.name.message}</span>}
-                </div>
+                </motion.div>
 
-                <div className={styles.field}>
+                <motion.div variants={fieldVariants} className={styles.field}>
                   <label htmlFor="contact-email" className={styles.label}>
                     Email address <span aria-hidden="true">*</span>
                   </label>
@@ -158,9 +179,9 @@ export function ContactForm() {
                     })}
                   />
                   {errors.email && <span className={styles.error} role="alert">{errors.email.message}</span>}
-                </div>
+                </motion.div>
 
-                <div className={styles.field}>
+                <motion.div variants={fieldVariants} className={styles.field}>
                   <label htmlFor="contact-budget" className={styles.label}>Project budget</label>
                   <select
                     id="contact-budget"
@@ -170,9 +191,9 @@ export function ContactForm() {
                     <option value="">Select a range...</option>
                     {BUDGETS.map(b => <option key={b} value={b}>{b}</option>)}
                   </select>
-                </div>
+                </motion.div>
 
-                <div className={styles.field}>
+                <motion.div variants={fieldVariants} className={styles.field}>
                   <label htmlFor="contact-message" className={styles.label}>
                     Tell me about your project <span aria-hidden="true">*</span>
                   </label>
@@ -184,9 +205,16 @@ export function ContactForm() {
                     {...register('message', { required: 'Message is required', minLength: { value: 20, message: 'Please write at least 20 characters' } })}
                   />
                   {errors.message && <span className={styles.error} role="alert">{errors.message.message}</span>}
-                </div>
+                </motion.div>
 
-                <button type="submit" className={styles.submit} disabled={isSubmitting}>
+                <motion.button 
+                  type="submit" 
+                  className={styles.submit} 
+                  disabled={isSubmitting}
+                  variants={fieldVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   {isSubmitting ? (
                     <span className={styles.spinner} aria-label="Sending…" />
                   ) : (
@@ -195,14 +223,14 @@ export function ContactForm() {
                       Send Message
                     </>
                   )}
-                </button>
+                </motion.button>
 
                 {errors.root && (
-                  <p className={styles.rootError} role="alert">
+                  <motion.div variants={fieldVariants} className={styles.submitError} role="alert">
                     {errors.root.message}
-                  </p>
+                  </motion.div>
                 )}
-              </form>
+              </motion.form>
             )}
           </motion.div>
         </div>

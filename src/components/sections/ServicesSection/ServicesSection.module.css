@@ -1,4 +1,38 @@
-.section {}
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Background elements ───────────────────────────────────── */
+.orbPurple {
+  position: absolute;
+  top: 30%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 60%);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.header, .grid {
+  position: relative;
+  z-index: 1;
+}
 
 .header {
   display: flex;

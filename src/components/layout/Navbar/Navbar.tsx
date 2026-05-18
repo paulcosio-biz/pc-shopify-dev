@@ -19,27 +19,48 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 24);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Close menu on route change
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  useEffect(() => { 
+    setMenuOpen(false); 
+    setExpanded(false);
+  }, [pathname]);
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`} role="banner">
-      <nav className={`container ${styles.nav}`} aria-label="Main navigation">
+    <header 
+      className={`${styles.header} ${scrolled ? styles.headerScrolled : ''} ${scrolled && expanded ? styles.headerExpanded : ''}`} 
+      role="banner"
+      onMouseLeave={() => scrolled && setExpanded(false)}
+    >
+      <nav className={`container ${styles.nav} ${scrolled ? styles.navScrolled : ''}`} aria-label="Main navigation">
         {/* Logo */}
         <Link href="/" className={styles.logo} aria-label="Paul Cosio — Go to homepage">
           <span className={styles.logoMark} aria-hidden="true">PC</span>
-          <span className={styles.logoText}>Paul Cosio</span>
+          <span className={`${styles.logoText} ${scrolled ? styles.logoTextScrolled : ''}`}>Paul Cosio</span>
         </Link>
 
+        {/* Dynamic Desktop Scrolled Controller Trigger */}
+        <button 
+          className={styles.controllerTrigger} 
+          onClick={() => setExpanded(o => !o)}
+          aria-label={expanded ? "Collapse menu" : "Expand navigation menu"}
+          aria-expanded={expanded}
+        >
+          <span className={styles.triggerText}>Explore Menu</span>
+          <svg className={`${styles.triggerChevron} ${expanded ? styles.triggerChevronOpen : ''}`} width="10" height="10" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+
         {/* Desktop links */}
-        <ul className={styles.links} role="list">
+        <ul className={`${styles.links} ${scrolled ? styles.linksScrolled : ''}`} role="list">
           {NAV_LINKS.map(link => (
             <li key={link.href}>
               <Link
@@ -51,16 +72,26 @@ export function Navbar() {
               </Link>
             </li>
           ))}
+          {/* Internal Collapse Button for expanded state */}
+          <li className={styles.collapseItem}>
+            <button 
+              className={styles.collapseBtn} 
+              onClick={() => setExpanded(false)}
+              aria-label="Collapse menu"
+            >
+              Collapse ▴
+            </button>
+          </li>
         </ul>
 
-        {/* Right controls */}
-        <div className={styles.controls}>
+        {/* Standard controls (Desktop full / Mobile always) */}
+        <div className={`${styles.controls} ${scrolled ? styles.controlsScrolled : ''}`}>
           <ThemeSwitcher />
           <Link href="/contact" className={styles.cta} aria-label="Hire me — go to contact">
             Hire Me
           </Link>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile hamburger menu toggle (always visible on mobile) */}
           <button
             className={styles.menuBtn}
             onClick={() => setMenuOpen(o => !o)}
@@ -72,6 +103,11 @@ export function Navbar() {
             <span className={`${styles.menuBar} ${menuOpen ? styles.menuBarOpen2 : ''}`} />
             <span className={`${styles.menuBar} ${menuOpen ? styles.menuBarOpen3 : ''}`} />
           </button>
+        </div>
+
+        {/* Compact Scrolled Controls (only theme switcher, visible when scrolled & collapsed on desktop) */}
+        <div className={styles.scrolledControlsCompact}>
+          <ThemeSwitcher />
         </div>
       </nav>
 

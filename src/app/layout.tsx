@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from 'next';
-import { Syne, Inter, JetBrains_Mono } from 'next/font/google';
+import { Outfit, Inter, JetBrains_Mono } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar/Navbar';
 import { Footer } from '@/components/layout/Footer/Footer';
 import '@/styles/globals.css';
 
-const syne = Syne({
+const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-syne',
-  weight: ['600', '700', '800'],
+  variable: '--font-outfit',
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
 });
 
@@ -56,7 +56,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-theme="glass" suppressHydrationWarning>
-      <body className={`${syne.variable} ${inter.variable} ${jetbrainsMono.variable} noise-overlay`} suppressHydrationWarning>
+      <body className={`${outfit.variable} ${inter.variable} ${jetbrainsMono.variable} noise-overlay`} suppressHydrationWarning>
         <Navbar />
         <main id="main-content" tabIndex={-1}>
           {children}

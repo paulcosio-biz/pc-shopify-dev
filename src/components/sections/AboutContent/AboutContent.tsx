@@ -2,7 +2,38 @@
 
 import { motion } from 'framer-motion';
 import { SKILLS } from '@/data/projects';
+import { Code2, TerminalSquare, ShoppingBag, Store, Globe, Briefcase, Cpu, Droplet, FileJson, LayoutTemplate, LayoutDashboard, Layers, Atom, FileCode2, FastForward, Paintbrush, Wand2, Settings2, Network, ServerCog, Webhook, Mail, Repeat, GitBranch, Terminal, PenTool, Send, Code } from 'lucide-react';
 import styles from './AboutContent.module.css';
+
+const ICON_MAP: Record<string, React.ReactNode> = {
+  ShoppingBag: <ShoppingBag size={16} />,
+  Store: <Store size={16} />,
+  Globe: <Globe size={16} />,
+  Briefcase: <Briefcase size={16} />,
+  Cpu: <Cpu size={16} />,
+  Droplet: <Droplet size={16} />,
+  FileJson: <FileJson size={16} />,
+  LayoutTemplate: <LayoutTemplate size={16} />,
+  LayoutDashboard: <LayoutDashboard size={16} />,
+  Layers: <Layers size={16} />,
+  Atom: <Atom size={16} />,
+  FileCode2: <FileCode2 size={16} />,
+  FastForward: <FastForward size={16} />,
+  Paintbrush: <Paintbrush size={16} />,
+  Wand2: <Wand2 size={16} />,
+  Settings2: <Settings2 size={16} />,
+  Network: <Network size={16} />,
+  ServerCog: <ServerCog size={16} />,
+  Webhook: <Webhook size={16} />,
+  Mail: <Mail size={16} />,
+  Repeat: <Repeat size={16} />,
+  GitBranch: <GitBranch size={16} />,
+  Terminal: <Terminal size={16} />,
+  TerminalSquare: <TerminalSquare size={16} />,
+  PenTool: <PenTool size={16} />,
+  Send: <Send size={16} />,
+  Code: <Code size={16} />,
+};
 
 const LinkedInIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -31,8 +62,26 @@ const TIMELINE = [
 export function AboutContent() {
   return (
     <div className={styles.wrapper}>
+      {/* Background Graphic */}
+      <div className={styles.orbFar} aria-hidden="true" />
+      
       {/* ── Hero ── */}
       <section className={`section ${styles.hero}`} aria-labelledby="about-heading">
+        <motion.div 
+          className={styles.floatingGraphic}
+          animate={{ y: [0, -20, 0], rotate: [-2, 2, -2] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          aria-hidden="true"
+        >
+          <div className={`glass ${styles.graphicCard}`}>
+            <Code2 size={24} className={styles.graphicIcon} />
+            <div className={styles.graphicText}>
+              <span>Code Quality</span>
+              <strong>100%</strong>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="container">
           <div className={styles.heroInner}>
             <motion.div
@@ -123,6 +172,7 @@ export function AboutContent() {
                 className={`glass ${styles.timelineItem}`}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ x: 8, transition: { duration: 0.2 } }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
@@ -151,14 +201,18 @@ export function AboutContent() {
                 transition={{ delay: gi * 0.08 }}
               >
                 <h3 className={styles.groupTitle}>{group.category}</h3>
-                <ul role="list" className={styles.groupItems}>
+                <div className={styles.groupItems}>
                   {group.items.map(item => (
-                    <li key={item} className={styles.groupItem}>
-                      <span className={styles.dot} aria-hidden="true" />
-                      {item}
-                    </li>
+                    <motion.div 
+                      key={item.name} 
+                      className={styles.badge}
+                      whileHover={{ y: -3, scale: 1.05 }}
+                    >
+                      <span className={styles.badgeIcon}>{ICON_MAP[item.icon]}</span>
+                      <span className={styles.badgeText}>{item.name}</span>
+                    </motion.div>
                   ))}
-                </ul>
+                </div>
               </motion.div>
             ))}
           </div>

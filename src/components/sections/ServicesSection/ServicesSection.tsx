@@ -17,6 +17,10 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 export function ServicesSection() {
   return (
     <section className={`section ${styles.section}`} aria-labelledby="services-heading">
+      {/* Background Visuals */}
+      <div className={styles.orbPurple} aria-hidden="true" />
+      <div className={styles.bgGrid} aria-hidden="true" />
+      
       <div className="container">
         <motion.div
           className={styles.header}

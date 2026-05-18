@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowDown, ArrowRight, Code2, ShoppingBag, Zap } from 'lucide-react';
+import { ArrowDown, ArrowRight, Code2, ShoppingBag, Zap, ShoppingCart, Activity } from 'lucide-react';
 import styles from './HeroSection.module.css';
 
 const STATS = [
@@ -31,6 +31,37 @@ export function HeroSection() {
 
       {/* Grid overlay */}
       <div className={styles.grid} aria-hidden="true" />
+
+      {/* Floating Graphics for Visual Engagement */}
+      <motion.div 
+        className={styles.floatingGraphic1}
+        animate={{ y: [0, -20, 0], rotate: [0, 3, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        aria-hidden="true"
+      >
+        <div className={`glass ${styles.graphicCard}`}>
+          <ShoppingCart size={24} className={styles.graphicIconAccent} />
+          <div className={styles.graphicText}>
+            <span>Conversion Rate</span>
+            <strong>+24%</strong>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        className={styles.floatingGraphic2}
+        animate={{ y: [0, 20, 0], rotate: [0, -3, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        aria-hidden="true"
+      >
+        <div className={`glass ${styles.graphicCard}`}>
+          <Activity size={24} className={styles.graphicIconSuccess} />
+          <div className={styles.graphicText}>
+            <span>Performance</span>
+            <strong className={styles.textSuccess}>99/100</strong>
+          </div>
+        </div>
+      </motion.div>
 
       <div className={`container ${styles.inner}`}>
         <motion.div

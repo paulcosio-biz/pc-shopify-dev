@@ -187,11 +187,58 @@ export const INDUSTRY_LABELS: Record<Industry, string> = {
 };
 
 export const SKILLS = [
-  { category: 'Shopify Platform', items: ['Shopify Plus', 'Shopify POS', 'Shopify Markets', 'B2B Commerce', 'Hydrogen (Headless)'] },
-  { category: 'Theme Development', items: ['Liquid', 'JSON Templates', 'Dawn / Craft / Horizon', 'Sections Everywhere', 'Theme Architecture'] },
-  { category: 'Frontend', items: ['React', 'TypeScript', 'Next.js', 'CSS / Sass', 'Framer Motion'] },
-  { category: 'Integrations', items: ['Shopify Functions', 'GraphQL API', 'REST Admin API', 'Webhooks', 'Klaviyo', 'Recharge'] },
-  { category: 'Tools & Workflow', items: ['Git', 'Shopify CLI', 'Python', 'Figma', 'Postman', 'VS Code'] },
+  { 
+    category: 'Shopify Platform', 
+    items: [
+      { name: 'Shopify Plus', icon: 'ShoppingBag' }, 
+      { name: 'Shopify POS', icon: 'Store' }, 
+      { name: 'Shopify Markets', icon: 'Globe' }, 
+      { name: 'B2B Commerce', icon: 'Briefcase' }, 
+      { name: 'Hydrogen (Headless)', icon: 'Cpu' }
+    ] 
+  },
+  { 
+    category: 'Theme Development', 
+    items: [
+      { name: 'Liquid', icon: 'Droplet' }, 
+      { name: 'JSON Templates', icon: 'FileJson' }, 
+      { name: 'Dawn / Craft / Horizon', icon: 'LayoutTemplate' }, 
+      { name: 'Sections Everywhere', icon: 'LayoutDashboard' }, 
+      { name: 'Theme Architecture', icon: 'Layers' }
+    ] 
+  },
+  { 
+    category: 'Frontend', 
+    items: [
+      { name: 'React', icon: 'Atom' }, 
+      { name: 'TypeScript', icon: 'FileCode2' }, 
+      { name: 'Next.js', icon: 'FastForward' }, 
+      { name: 'CSS / Sass', icon: 'Paintbrush' }, 
+      { name: 'Framer Motion', icon: 'Wand2' }
+    ] 
+  },
+  { 
+    category: 'Integrations', 
+    items: [
+      { name: 'Shopify Functions', icon: 'Settings2' }, 
+      { name: 'GraphQL API', icon: 'Network' }, 
+      { name: 'REST Admin API', icon: 'ServerCog' }, 
+      { name: 'Webhooks', icon: 'Webhook' }, 
+      { name: 'Klaviyo', icon: 'Mail' }, 
+      { name: 'Recharge', icon: 'Repeat' }
+    ] 
+  },
+  { 
+    category: 'Tools & Workflow', 
+    items: [
+      { name: 'Git', icon: 'GitBranch' }, 
+      { name: 'Shopify CLI', icon: 'Terminal' }, 
+      { name: 'Python', icon: 'TerminalSquare' }, 
+      { name: 'Figma', icon: 'PenTool' }, 
+      { name: 'Postman', icon: 'Send' }, 
+      { name: 'VS Code', icon: 'Code' }
+    ] 
+  },
 ];
 
 export const SERVICES = [

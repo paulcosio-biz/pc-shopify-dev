@@ -2,11 +2,22 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import { PROJECTS, INDUSTRY_LABELS } from '@/data/projects';
+import { Coffee, Shirt, Utensils, Armchair, Footprints, Package, TerminalSquare, ArrowRight } from 'lucide-react';
+import { PROJECTS, INDUSTRY_LABELS, type Industry } from '@/data/projects';
 import styles from './FeaturedWork.module.css';
 
 const featured = PROJECTS.filter(p => p.featured);
+
+const INDUSTRY_ICONS: Record<Industry, React.ElementType> = {
+  coffee: Coffee,
+  fashion: Shirt,
+  apparel: Shirt,
+  food: Utensils,
+  furniture: Armchair,
+  footwear: Footprints,
+  essentials: Package,
+  development: TerminalSquare,
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -47,6 +58,12 @@ export function FeaturedWork() {
               transition={{ delay: i * 0.12, duration: 0.5 }}
               whileHover={{ y: -4 }}
             >
+              {/* Subtle dynamic background icon */}
+              {(() => {
+                const Icon = INDUSTRY_ICONS[project.industry] || Package;
+                return <Icon size={220} className={styles.cardBgIcon} strokeWidth={0.5} aria-hidden="true" />;
+              })()}
+
               {/* Industry badge */}
               <span className={styles.badge}>
                 {INDUSTRY_LABELS[project.industry]}

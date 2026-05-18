@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { Coffee, Shirt, Utensils, Armchair, Footprints, Package, TerminalSquare, ArrowRight } from 'lucide-react';
 import { PROJECTS, INDUSTRY_LABELS, type Industry } from '@/data/projects';
 import styles from './WorkGrid.module.css';
 
@@ -20,6 +20,17 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'essentials', label: 'Essentials'   },
 ];
 
+const INDUSTRY_ICONS: Record<Industry, React.ElementType> = {
+  coffee: Coffee,
+  fashion: Shirt,
+  apparel: Shirt,
+  food: Utensils,
+  furniture: Armchair,
+  footwear: Footprints,
+  essentials: Package,
+  development: TerminalSquare,
+};
+
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.97 },
   show:   { opacity: 1, y: 0,  scale: 1,
@@ -28,13 +39,35 @@ const cardVariants = {
   exit:   { opacity: 0, y: -12, scale: 0.97,
     transition: { duration: 0.18, ease: 'easeIn' }
   },
+  hover:  { y: -4, transition: { duration: 0.2 } },
 };
+
 
 const gridVariants = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.06, delayChildren: 0.05 },
   },
+};
+
+const MiniChart = () => {
+  const bars = [30, 60, 45, 85, 65, 100];
+  return (
+    <div className={styles.miniChart} aria-hidden="true">
+      {bars.map((h, i) => (
+        <div key={i} className={styles.barTrack}>
+          <motion.div 
+            className={styles.barFill}
+            variants={{
+              hidden: { height: '15%' },
+              show: { height: '15%' },
+              hover: { height: `${h}%`, transition: { duration: 0.4, delay: i * 0.05, ease: 'easeOut' } }
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export function WorkGrid() {
@@ -97,8 +130,14 @@ export function WorkGrid() {
                 key={project.slug}
                 className={`glass ${styles.card}`}
                 variants={cardVariants as any}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                whileHover="hover"
               >
+                {/* Subtle dynamic background icon */}
+                {(() => {
+                  const Icon = INDUSTRY_ICONS[project.industry] || Package;
+                  return <Icon size={220} className={styles.cardBgIcon} strokeWidth={0.5} aria-hidden="true" />;
+                })()}
+
                 <div className={styles.cardTop}>
                   <span className={styles.badge}>
                     {INDUSTRY_LABELS[project.industry]}
@@ -111,12 +150,15 @@ export function WorkGrid() {
 
                 {/* Results row */}
                 <div className={styles.results}>
-                  {project.results.map(r => (
-                    <div key={r.label} className={styles.result}>
-                      <span className={styles.resultValue}>{r.value}</span>
-                      <span className={styles.resultLabel}>{r.label}</span>
-                    </div>
-                  ))}
+                  <div className={styles.resultsMetrics}>
+                    {project.results.map(r => (
+                      <div key={r.label} className={styles.result}>
+                        <span className={styles.resultValue}>{r.value}</span>
+                        <span className={styles.resultLabel}>{r.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <MiniChart />
                 </div>
 
                 {/* Tech */}

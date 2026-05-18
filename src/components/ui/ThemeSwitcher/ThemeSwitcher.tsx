@@ -2,18 +2,26 @@
 
 import { useState, useEffect } from 'react';
 import { THEMES, type Theme } from '@/data/projects';
+import { Moon, Sun } from 'lucide-react';
 import styles from './ThemeSwitcher.module.css';
 
 const STORAGE_KEY = 'portfolio-theme';
+const MODE_KEY = 'portfolio-mode';
 
 export function ThemeSwitcher() {
   const [current, setCurrent] = useState<Theme>('glass');
+  const [mode, setMode] = useState<'light' | 'dark'>('dark');
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const saved = (localStorage.getItem(STORAGE_KEY) as Theme) || 'glass';
-    setCurrent(saved);
-    document.documentElement.setAttribute('data-theme', saved);
+    const savedTheme = (localStorage.getItem(STORAGE_KEY) as Theme) || 'glass';
+    const savedMode = (localStorage.getItem(MODE_KEY) as 'light' | 'dark') || 'dark';
+    
+    setCurrent(savedTheme);
+    setMode(savedMode);
+    
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.documentElement.setAttribute('data-mode', savedMode);
   }, []);
 
   const setTheme = (theme: Theme) => {
@@ -23,8 +31,24 @@ export function ThemeSwitcher() {
     localStorage.setItem(STORAGE_KEY, theme);
   };
 
+  const toggleMode = () => {
+    const newMode = mode === 'light' ? 'dark' : 'light';
+    setMode(newMode);
+    document.documentElement.setAttribute('data-mode', newMode);
+    localStorage.setItem(MODE_KEY, newMode);
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.container}>
+      <button 
+        className={styles.modeToggle} 
+        onClick={toggleMode}
+        aria-label={`Switch to ${mode === 'light' ? 'dark' : 'light'} mode`}
+      >
+        {mode === 'light' ? <Moon size={16} strokeWidth={2.5} /> : <Sun size={16} strokeWidth={2.5} />}
+      </button>
+      
+      <div className={styles.wrapper}>
       <button
         className={styles.trigger}
         onClick={() => setOpen(o => !o)}
@@ -65,6 +89,7 @@ export function ThemeSwitcher() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

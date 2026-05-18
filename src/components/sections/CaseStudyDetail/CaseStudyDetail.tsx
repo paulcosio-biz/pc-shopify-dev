@@ -1,23 +1,73 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
-import { type Project, INDUSTRY_LABELS } from '@/data/projects';
+import { ArrowLeft, CheckCircle2, Coffee, Shirt, Utensils, Armchair, Footprints, Package, TerminalSquare } from 'lucide-react';
+import { type Project, INDUSTRY_LABELS, type Industry } from '@/data/projects';
 import styles from './CaseStudyDetail.module.css';
 
 interface Props {
   project: Project;
 }
 
-export function CaseStudyDetail({ project }: Props) {
+const INDUSTRY_ICONS: Record<Industry, React.ElementType> = {
+  coffee: Coffee,
+  fashion: Shirt,
+  apparel: Shirt,
+  food: Utensils,
+  furniture: Armchair,
+  footwear: Footprints,
+  essentials: Package,
+  development: TerminalSquare,
+};
+
+const MetricsChart = () => {
+  const bars = [40, 70, 50, 90, 65, 100, 80];
   return (
-    <article className={`section ${styles.article}`} aria-label={`Case study: ${project.label}`}>
+    <div className={styles.metricsChart} aria-hidden="true">
+      {bars.map((h, i) => (
+        <div key={i} className={styles.metricTrack}>
+          <motion.div 
+            className={styles.metricFill}
+            initial={{ height: '0%' }}
+            whileInView={{ height: `${h}%` }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export function CaseStudyDetail({ project }: Props) {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+
+  const yBackground = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const yMockup = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+
+  return (
+    <article ref={ref} className={`section ${styles.article}`} aria-label={`Case study: ${project.label}`}>
       <div className="container">
         {/* Back link */}
         <Link href="/work" className={styles.back}>
           <ArrowLeft size={16} /> All Projects
         </Link>
+
+        {/* Dynamic Atmospheric Background Industry Icon */}
+        {(() => {
+          const Icon = INDUSTRY_ICONS[project.industry] || Package;
+          return (
+            <div className={styles.pageBgIconContainer} aria-hidden="true">
+              <Icon size={460} className={styles.pageBgIcon} strokeWidth={0.5} />
+            </div>
+          );
+        })()}
 
         {/* Hero */}
         <motion.header
@@ -31,18 +81,39 @@ export function CaseStudyDetail({ project }: Props) {
           <p className={styles.tagline}>{project.tagline}</p>
 
           {/* Stats */}
-          <div className={styles.stats}>
+          <motion.div 
+            className={styles.stats}
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: { staggerChildren: 0.1, delayChildren: 0.4 }
+              }
+            }}
+          >
             {project.results.map(r => (
-              <div key={r.label} className={`glass ${styles.stat}`}>
+              <motion.div 
+                key={r.label} 
+                className={`glass ${styles.stat}`}
+                variants={{
+                  hidden: { opacity: 0, scale: 0.8 },
+                  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } }
+                }}
+              >
                 <span className={styles.statValue}>{r.value}</span>
                 <span className={styles.statLabel}>{r.label}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+
+
+          </motion.div>
         </motion.header>
 
         {/* Body */}
         <div className={styles.body}>
+          <motion.div className={styles.orbFar} style={{ y: yBackground }} aria-hidden="true" />
           {/* Challenge */}
           <motion.section
             className={`glass ${styles.block}`}
@@ -69,9 +140,12 @@ export function CaseStudyDetail({ project }: Props) {
           >
             <h2 id="solution-heading" className={styles.blockTitle}>
               <span className={styles.blockNum}>02</span>
-              The Solution
+              The Solution & Results
             </h2>
-            <p className={styles.blockText}>{project.solution}</p>
+            <div className={styles.solutionGrid}>
+              <p className={styles.blockText}>{project.solution}</p>
+              <MetricsChart />
+            </div>
           </motion.section>
 
           {/* Tech stack */}

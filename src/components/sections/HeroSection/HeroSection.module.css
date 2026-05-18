@@ -44,6 +44,78 @@
   pointer-events: none;
 }
 
+/* ── Floating Graphics ─────────────────────────────────────── */
+.floatingGraphic1,
+.floatingGraphic2 {
+  position: absolute;
+  z-index: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.floatingGraphic1 {
+  top: 20%;
+  right: 15%;
+}
+
+.floatingGraphic2 {
+  bottom: 25%;
+  left: 5%;
+}
+
+@media (min-width: 1024px) {
+  .floatingGraphic1,
+  .floatingGraphic2 {
+    display: block;
+  }
+}
+
+.graphicCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-glass);
+  backdrop-filter: var(--backdrop-glass);
+  -webkit-backdrop-filter: var(--backdrop-glass);
+  border: 1px solid var(--color-border-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+.graphicIconAccent {
+  color: var(--color-accent);
+}
+
+.graphicIconSuccess {
+  color: #22c55e;
+}
+
+.textSuccess {
+  color: #22c55e !important;
+}
+
+.graphicText {
+  display: flex;
+  flex-direction: column;
+}
+
+.graphicText span {
+  font-size: var(--text-xs);
+  color: var(--color-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.graphicText strong {
+  font-size: var(--text-lg);
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-white);
+}
+
 /* ── Main layout ───────────────────────────────────────────── */
 .inner {
   display: grid;
