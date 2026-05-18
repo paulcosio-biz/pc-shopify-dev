@@ -1,0 +1,106 @@
+/* ============================================================
+   BREAKPOINTS — Standard + Foldable / Emerging Devices
+   ============================================================
+
+   Usage in CSS:
+   @media (--bp-mobile) { ... }
+   @media (--bp-tablet) { ... }
+
+   Or as min-width media queries:
+   @media (min-width: 768px) { ... }
+
+   ============================================================ */
+
+/* ── Standard breakpoints ──────────────────────────────────── */
+/* xs:   320px  — tiny / legacy phones                         */
+/* sm:   375px  — iPhone 14, standard mobile                   */
+/* md:   768px  — iPad portrait                                */
+/* lg:   1024px — iPad landscape, small laptop                 */
+/* xl:   1280px — Desktop                                      */
+/* 2xl:  1440px — Wide desktop                                 */
+/* 3xl:  1920px — Full HD                                      */
+
+/* ── Foldable device breakpoints ───────────────────────────── */
+/* fold-closed:  260px  — Galaxy Z Flip cover screen           */
+/* fold-sm:      344px  — Galaxy Z Fold folded                 */
+/* fold-open:    884px  — Galaxy Z Fold unfolded (inner screen)*/
+/* duo:          540px  — Surface Duo single pane              */
+/* tall-20-9:    used with aspect ratio queries                */
+
+/* ── Foldable posture queries (CSS Spanning API) ────────────── */
+
+/* Book posture — two screens side by side (e.g. Fold unfolded landscape) */
+@media (horizontal-viewport-segments: 2) {
+  .fold-aware {
+    display: grid;
+    grid-template-columns: env(fold-left) 1fr;
+    gap: env(fold-width);
+  }
+}
+
+/* Flat posture — two segments stacked (e.g. Fold unfolded portrait) */
+@media (vertical-viewport-segments: 2) {
+  .fold-vertical {
+    display: grid;
+    grid-template-rows: env(fold-top) 1fr;
+    gap: env(fold-height);
+  }
+}
+
+/* ── Galaxy Z Flip — cover screen (tiny portrait) ───────────── */
+@media (max-width: 280px) {
+  .flip-cover-only {
+    display: block;
+  }
+  .flip-cover-hide {
+    display: none;
+  }
+}
+
+/* ── Galaxy Z Fold — folded (narrow phone form) ─────────────── */
+@media (max-width: 360px) {
+  /* Ultra-compact layout — single column, minimal padding */
+}
+
+/* ── 20:9 tall phone (Pixel, Samsung) ───────────────────────── */
+@media (min-aspect-ratio: 9/20) and (max-width: 430px) {
+  .hero-full-viewport {
+    min-height: 100dvh;
+  }
+}
+
+/* ── Utilities for container widths ─────────────────────────── */
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+@media (min-width: 375px) {
+  .container { padding-inline: var(--space-5); }
+}
+
+@media (min-width: 768px) {
+  .container { padding-inline: var(--space-8); }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: var(--container-lg);
+    padding-inline: var(--space-10);
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: var(--container-xl);
+    padding-inline: var(--space-12);
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: var(--container-2xl);
+    padding-inline: var(--space-16);
+  }
+}
