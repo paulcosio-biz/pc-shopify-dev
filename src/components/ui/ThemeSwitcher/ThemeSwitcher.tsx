@@ -22,20 +22,36 @@ export function ThemeSwitcher() {
     
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.documentElement.setAttribute('data-mode', savedMode);
+    if (document.body) {
+      document.body.setAttribute('data-theme', savedTheme);
+      document.body.setAttribute('data-mode', savedMode);
+    }
   }, []);
 
   const setTheme = (theme: Theme) => {
     setCurrent(theme);
     setOpen(false);
+    
     document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
+    
     localStorage.setItem(STORAGE_KEY, theme);
+    
+    // Force Safari/WebKit reflow & style repaint
+    void document.documentElement.offsetHeight;
   };
 
   const toggleMode = () => {
     const newMode = mode === 'light' ? 'dark' : 'light';
     setMode(newMode);
+    
     document.documentElement.setAttribute('data-mode', newMode);
+    document.body.setAttribute('data-mode', newMode);
+    
     localStorage.setItem(MODE_KEY, newMode);
+    
+    // Force Safari/WebKit reflow & style repaint
+    void document.documentElement.offsetHeight;
   };
 
   return (
