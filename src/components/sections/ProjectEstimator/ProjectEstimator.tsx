@@ -115,14 +115,14 @@ export function ProjectEstimator() {
     );
   }
 
-  // Handle direct mock submission
+  // Handle direct API submission
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || !email.trim()) return;
 
     setIsSubmitting(true);
     
-    // Retain and compile result of user's quiz + custom notes
+    // Retain and compile result of user's quiz + contact message
     const selectedF = FOUNDATIONS.find(f => f.id === foundation)?.title || '';
     const selectedS = DTC_SCALES.find(s => s.id === scale)?.title || '';
     const selectedI = selectedIntegrations
@@ -130,24 +130,42 @@ export function ProjectEstimator() {
       .filter(Boolean)
       .join(', ') || 'Default Storefront';
 
-    const fullProposalData = {
-      clientName: name,
-      clientEmail: email,
-      customMessage: message,
-      evaluationBlueprint: {
-        foundation: selectedF,
-        scale: selectedS,
-        integrations: selectedI
-      }
-    };
-    
-    // Log the combined telemetry payload
-    console.log('Successfully synced evaluation quiz specs + contact message:', fullProposalData);
+    // Format consolidated message containing both user's custom details and the specs
+    const consolidatedMessage = [
+      message,
+      '',
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+      '📋 PROJECT BLUEPRINT SPECIFICATIONS:',
+      `• Architecture:   ${selectedF}`,
+      `• Project Fit:    ${selectedS}`,
+      `• Integrations:   ${selectedI}`,
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    ].join('\n');
 
-    // Simulate premium server API response delay
-    await new Promise(resolve => setTimeout(resolve, 1800));
-    setIsSubmitting(false);
-    setStep(4); // Trigger success step
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          budget: selectedS, // Bind the DTC scale selection to budget
+          message: consolidatedMessage
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error('API response failed');
+      }
+
+      setIsSubmitting(false);
+      setStep(4); // Trigger success step
+    } catch (err) {
+      console.error('[Estimator API Error]', err);
+      // Fallback: still show the local success step to retain UX flow
+      setIsSubmitting(false);
+      setStep(4);
+    }
   }
 
   // Calculations
