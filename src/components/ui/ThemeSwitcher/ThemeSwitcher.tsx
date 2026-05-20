@@ -28,6 +28,31 @@ export function ThemeSwitcher() {
     }
   }, []);
 
+  // Sync state between different switcher instances
+  useEffect(() => {
+    const handleThemeChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ theme: Theme }>;
+      if (customEvent.detail && customEvent.detail.theme) {
+        setCurrent(customEvent.detail.theme);
+      }
+    };
+
+    const handleModeChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ mode: 'light' | 'dark' }>;
+      if (customEvent.detail && customEvent.detail.mode) {
+        setMode(customEvent.detail.mode);
+      }
+    };
+
+    window.addEventListener('portfolio-theme-change', handleThemeChange);
+    window.addEventListener('portfolio-mode-change', handleModeChange);
+
+    return () => {
+      window.removeEventListener('portfolio-theme-change', handleThemeChange);
+      window.removeEventListener('portfolio-mode-change', handleModeChange);
+    };
+  }, []);
+
   const setTheme = (theme: Theme) => {
     setCurrent(theme);
     setOpen(false);
@@ -39,6 +64,9 @@ export function ThemeSwitcher() {
     
     // Force Safari/WebKit reflow & style repaint
     void document.documentElement.offsetHeight;
+
+    // Notify other switcher instances
+    window.dispatchEvent(new CustomEvent('portfolio-theme-change', { detail: { theme } }));
   };
 
   const toggleMode = () => {
@@ -52,6 +80,9 @@ export function ThemeSwitcher() {
     
     // Force Safari/WebKit reflow & style repaint
     void document.documentElement.offsetHeight;
+
+    // Notify other switcher instances
+    window.dispatchEvent(new CustomEvent('portfolio-mode-change', { detail: { mode: newMode } }));
   };
 
   return (

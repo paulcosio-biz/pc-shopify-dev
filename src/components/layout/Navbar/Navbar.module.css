@@ -303,16 +303,30 @@
     height: 48px;
     border-radius: var(--radius-full);
     border: 1px solid var(--color-border-glass);
-    background: var(--color-surface);
+    background: var(--color-surface-glass);
+    backdrop-filter: var(--backdrop-glass);
+    -webkit-backdrop-filter: var(--backdrop-glass);
     box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.05);
     padding-inline: var(--space-3);
     min-width: 220px;
     transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  /* Transition to solid opaque surface when hovered or expanded for ultimate usability */
+  .headerScrolled:hover,
+  .headerScrolled.headerExpanded {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
   .headerExpanded {
-    min-width: 820px;
+    min-width: 860px;
     padding-inline: var(--space-4);
+  }
+
+  /* Hide the Explore Menu button completely when expanded to save space and avoid clutter */
+  .headerScrolled.headerExpanded .controllerTrigger {
+    display: none !important;
   }
 
   .navScrolled {
@@ -413,6 +427,31 @@
     display: flex;
     align-items: center;
     gap: var(--space-3);
+  }
+
+  /* Force only the top-level header buttons in scrolled header to strictly 32px to avoid stretching or dropdown option compression */
+  .headerScrolled .controllerTrigger,
+  .headerScrolled [class*="modeToggle"],
+  .headerScrolled [class*="trigger"],
+  .headerScrolled .cta,
+  .headerScrolled .collapseBtn {
+    height: 32px !important;
+    padding-block: 0 !important;
+    font-size: var(--text-xs) !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Compact Hire Me button when scrolled to match 32px alignment */
+  .headerScrolled .cta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-block: 0 !important;
+    padding-inline: var(--space-3) !important;
+    font-size: var(--text-xs) !important;
+    height: 32px !important;
+    margin-right: var(--space-3) !important;
   }
 
   /* Scrolled Controls compact view rules (switcher only when collapsed) */

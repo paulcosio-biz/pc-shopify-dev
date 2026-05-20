@@ -188,7 +188,7 @@ export function AboutContent() {
       <section className={`section ${styles.skills}`} aria-labelledby="about-skills-heading">
         <div className="container">
           <h2 id="about-skills-heading" className={styles.sectionHeading}>
-            Skills & <span className="text-gradient">toolset</span>
+            Technical <span className="text-gradient">directory</span>
           </h2>
           <div className={styles.skillsGrid}>
             {SKILLS.map((group, gi) => (

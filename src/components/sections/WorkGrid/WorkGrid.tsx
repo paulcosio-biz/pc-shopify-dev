@@ -58,11 +58,25 @@ const MiniChart = () => {
         <div key={i} className={styles.barTrack}>
           <motion.div 
             className={styles.barFill}
-            variants={{
-              hidden: { height: '15%' },
-              show: { height: '15%' },
-              hover: { height: `${h}%`, transition: { duration: 0.4, delay: i * 0.05, ease: 'easeOut' } }
+            initial={{ height: '15%' }}
+            animate={{ 
+              height: [
+                `${Math.max(15, h - 25)}%`, 
+                `${h}%`
+              ]
             }}
+            whileHover={{ scaleY: 1.08 }}
+            transition={{ 
+              height: { 
+                duration: 1.2 + Math.sin(i) * 0.4, 
+                repeat: Infinity,
+                repeatType: 'reverse',
+                ease: 'easeInOut',
+                delay: i * 0.1
+              },
+              scaleY: { duration: 0.2, ease: 'easeInOut' }
+            }}
+            style={{ originY: 1 }}
           />
         </div>
       ))}

@@ -22,7 +22,10 @@ export function Navbar() {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      setExpanded(false);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -38,7 +41,6 @@ export function Navbar() {
       <header 
       className={`${styles.header} ${scrolled ? styles.headerScrolled : ''} ${scrolled && expanded ? styles.headerExpanded : ''} ${menuOpen ? styles.headerOpen : ''}`} 
       role="banner"
-      onMouseLeave={() => scrolled && setExpanded(false)}
     >
       <nav className={`container ${styles.nav} ${scrolled ? styles.navScrolled : ''}`} aria-label="Main navigation">
         {/* Logo */}

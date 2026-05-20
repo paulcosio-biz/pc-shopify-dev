@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { HeroSection } from '@/components/sections/HeroSection/HeroSection';
 import { FeaturedWork } from '@/components/sections/FeaturedWork/FeaturedWork';
-import { SkillsBar } from '@/components/sections/SkillsBar/SkillsBar';
+import { ProjectEstimator } from '@/components/sections/ProjectEstimator/ProjectEstimator';
 import { ServicesSection } from '@/components/sections/ServicesSection/ServicesSection';
 import { ContactCta } from '@/components/sections/ContactCta/ContactCta';
 
@@ -16,7 +16,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <FeaturedWork />
-      <SkillsBar />
+      <ProjectEstimator />
       <ServicesSection />
       <ContactCta />
     </>

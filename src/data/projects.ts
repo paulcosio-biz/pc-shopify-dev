@@ -2,7 +2,7 @@ export type Theme = 'glass' | 'minimal' | 'ember' | 'corporate';
 
 export const THEMES: { id: Theme; label: string; description: string; emoji: string }[] = [
   { id: 'glass',     label: 'Glassmorphism', description: 'Frosted glass, premium dark',   emoji: '🪟' },
-  { id: 'minimal',   label: 'Minimal Dark',  description: 'Clean lines, editorial',        emoji: '◼' },
+  { id: 'minimal',   label: 'Minimal Dark',  description: 'Clean lines, editorial',        emoji: '⬛' },
   { id: 'ember',     label: 'Ember',          description: 'Cyberpunk, glowing embers',    emoji: '🔥' },
   { id: 'corporate', label: 'Corporate',      description: 'Warm professional tone',       emoji: '🏢' },
 ];
