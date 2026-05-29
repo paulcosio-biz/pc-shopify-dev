@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Outfit, Inter, JetBrains_Mono } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar/Navbar';
 import { Footer } from '@/components/layout/Footer/Footer';
+import { Analytics } from '@vercel/analytics/next';
 import '@/styles/globals.css';
 
 const outfit = Outfit({
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
